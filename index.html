@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Hulas Mustang Max — Made-in-Nepal Jeep Tribute</title>
 <meta name="description" content="Scroll-driven 3D tribute to Hulas Motors Mustang Max. Original code, local CC0 models, story sourced from OnlineKhabar English." />
+<meta name="theme-color" content="#d6d1cc" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Hulas Mustang Max — Made-in-Nepal Jeep Tribute" />
+<meta property="og:description" content="Scroll-driven 3D tribute to the Hulas Mustang Max, Nepal's jeep of 1998–2013." />
+<script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script>
 <link rel="icon" href="./assets/hulas-logo.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,15 +21,22 @@
 </head>
 <body>
 
-<div id="loader"><div class="loader-title">BUILT BY JEEP LOVERS,<br/>FOR JEEP LOVERS.</div><div class="loader-ring"><span></span></div><img class="loader-badge" src="./assets/badge.svg" alt="Hulas tribute badge" /></div>
+<a class="skip-link" href="#content">Skip to content</a>
+
+<div id="loader" aria-hidden="true"><div class="loader-title">BUILT BY JEEP LOVERS,<br/>FOR JEEP LOVERS.</div><div class="loader-ring"><span></span></div><img class="loader-badge" src="./assets/badge.svg" alt="" /></div>
 
 <canvas id="scene" aria-hidden="true"></canvas>
 
-<div class="topbar">
-  <button id="soundBtn" class="icon-btn" aria-label="Sound">&#9834;</button>
+<header class="topbar">
+  <button id="soundBtn" class="icon-btn" aria-pressed="false" aria-label="Play engine sound">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+      <path d="M4 9h3l5-4v14l-5-4H4z" fill="currentColor"/>
+      <path class="ico-waves" d="M15.6 8.6a4.8 4.8 0 0 1 0 6.8M18.2 6a8.4 8.4 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+  </button>
   <div class="brand-chip"><img src="./assets/hulas-m.svg" alt="Hulas Motors" /></div>
-</div>
-<div class="pw-badge"><img src="./assets/badge.svg" alt="tribute badge" /></div>
+</header>
+<div class="pw-badge" aria-hidden="true"><img src="./assets/badge.svg" alt="" /></div>
 
 <main id="content">
 
@@ -39,14 +51,14 @@
   <section id="introduction" class="panel white reveal">
     <div class="rule"></div><p class="kicker">Introduction</p>
     <h2 class="big">Developed from necessity, the Hulas Mustang of 1998 was the first of its kind in Nepal. With dozer-track fame across hills and plains it became the most iconic made-in-Nepal workhorse.</h2>
-    <img class="accent" src="./assets/line-left.svg" alt="" />
+    <img class="accent" src="./assets/line-left.svg" alt="" loading="lazy" decoding="async" />
   </section>
 
   <!-- 3 · PHOTOS -->
   <section class="panel white reveal">
     <div class="img-grid">
-      <figure><img src="./assets/photo-v2.svg" alt="Mustang V2 illustration" /><figcaption>Mustang V2 — “One Mustang follows dozer.” 13 seats, ~Rs 1.3M.</figcaption></figure>
-      <figure><img src="./assets/photo-max.svg" alt="Mustang Max illustration" /><figcaption>Mustang Max — VVIP build Ba 1 Jha 9360 for PM Baburam Bhattarai.</figcaption></figure>
+      <figure><img src="./assets/photo-v2.svg" alt="Mustang V2 illustration" loading="lazy" decoding="async" /><figcaption>Mustang V2 — “One Mustang follows dozer.” 13 seats, ~Rs 1.3M.</figcaption></figure>
+      <figure><img src="./assets/photo-max.svg" alt="Mustang Max illustration" loading="lazy" decoding="async" /><figcaption>Mustang Max — VVIP build Ba 1 Jha 9360 for PM Baburam Bhattarai.</figcaption></figure>
     </div>
   </section>
 
@@ -66,7 +78,7 @@
         </div>
       </div>
     </div>
-    <img class="corner" src="./assets/lines-right.svg" alt="" />
+    <img class="corner" src="./assets/lines-right.svg" alt="" loading="lazy" decoding="async" />
   </section>
 
   <!-- 5 · STATS — transparent over 3D -->
@@ -94,7 +106,7 @@
       <video id="userVideo" controls playsinline preload="metadata"></video>
       <p class="video-note">MUSTANG REEL — drop your own <code>mustang.mp4</code> next to index.html and it plays here.</p>
     </div>
-    <img class="accent" src="./assets/lines-left.svg" alt="" />
+    <img class="accent" src="./assets/lines-left.svg" alt="" loading="lazy" decoding="async" />
   </section>
 
   <!-- canvas gap -->
@@ -106,16 +118,16 @@
     <div class="split">
       <p class="side-label">What people said<br/>at the time.</p>
       <div>
-        <img class="quote-mark" src="./assets/quote.svg" alt="" />
+        <img class="quote-mark" src="./assets/quote.svg" alt="" loading="lazy" decoding="async" />
         <p class="quote-lead">The Mustang isn't about transportation, it's about reaching. Hard. Loaded. Every day. A hill-legal workhorse more at home on a dozer track than a boulevard.</p>
         <p class="attrib">Prafulla Das, former GM &amp; chief engineer, Hulas Motors</p>
         <p class="body-p"><strong>Summary:</strong> “Let's not reopen old wounds… As a noble citizen, I wanted to do something for the country.” Two decades of work, two months to build the AC VVIP Mustang Max for PM Baburam Bhattarai (Ba 1 Jha 9360).</p>
         <p class="body-p">Hulas Bravo (Rs 2–3M, 11 seats) took Rs 8M+ R&amp;D to fight Rs 6–10M imports. The 2012 budget allowed only Euro-3 registrations — team asked for 2 years, got 1. Production stopped 2013. Bravo never reached the road.</p>
-        <div class="stars-row"><img src="./assets/stars.svg" alt="5 stars" /><span>Hills &amp; plains drivers</span></div>
+        <div class="stars-row"><img src="./assets/stars.svg" alt="5 stars" loading="lazy" decoding="async" /><span>Hills &amp; plains drivers</span></div>
         <p class="muted">Summarized from Nabin Dhungana, OnlineKhabar English, Aug 30 2019. <a href="https://english.onlinekhabar.com/mustang-max-how-the-government-killed-an-ambitious-industrialists-dream-project.html" target="_blank" rel="noopener">Original &rarr;</a></p>
       </div>
     </div>
-    <img class="corner" src="./assets/lines-right.svg" alt="" />
+    <img class="corner" src="./assets/lines-right.svg" alt="" loading="lazy" decoding="async" />
   </section>
 
   <!-- 9 · ETERNAL — transparent over 3D -->
@@ -124,7 +136,7 @@
       <h2 class="eternal">ETERNAL<br/>WORKHORSE.</h2>
       <a class="pill" href="#resources"><span>Find The Full Story</span><span class="pill-arrow"><img src="./assets/arrow-black.svg" alt="" /></span></a>
     </div>
-    <div class="stage-foot"><img class="foot-logo" src="./assets/hulas-logo.svg" alt="" /><p>THE MUSTANG MAX SERIES.<br/>NEPAL'S JEEP OF 1998–2013.</p></div>
+    <div class="stage-foot"><img class="foot-logo" src="./assets/hulas-logo.svg" alt="" loading="lazy" decoding="async" /><p>THE MUSTANG MAX SERIES.<br/>NEPAL'S JEEP OF 1998–2013.</p></div>
   </section>
 
   <!-- 10 · RESOURCES — white panel -->
@@ -145,26 +157,26 @@
         <a href="https://app.cinevva.com/game-assets/free-3d-vehicle-models" target="_blank" rel="noopener"><strong>Cinevva — CC0 vehicle GLBs (3D source)</strong><span>Kenney Car Kit, public domain, downloaded locally.</span></a>
       </div>
     </div>
-    <img class="corner" src="./assets/lines-right.svg" alt="" />
+    <img class="corner" src="./assets/lines-right.svg" alt="" loading="lazy" decoding="async" />
   </section>
 
   <!-- canvas gap -->
   <div class="gap" aria-hidden="true"></div>
 
-  <!-- 11 · FOOTER — black panel -->
-  <footer id="footer" class="panel dark">
-    <div class="rule light"></div>
-    <h3 class="foot-title">Hulas Motors Pvt Ltd — Golcha Group tribute, Biratnagar</h3>
-    <div class="foot-grid">
-      <div><strong>Chief Engineer: Prafulla Das</strong><span>Mustang V2 / Max / Bravo concept</span></div>
-      <div><a href="#introduction">Home</a><a href="#stats">Models</a><a href="#story">About</a><a href="https://english.onlinekhabar.com/mustang-max-how-the-government-killed-an-ambitious-industrialists-dream-project.html" target="_blank" rel="noopener">Source</a></div>
-      <div><span>Instagram</span><span>Facebook</span><span>X</span></div>
-    </div>
-    <p class="disclaimer">Fan-made study tribute. Not affiliated with Hulas Motors, BMW or PeachWorlds. Layout re-built with original code. 3D stand-in: Kenney Car Kit, CC0, bundled locally (vendor/ = three.js). No third-party logos, fonts (Futura→Anton) or models from any reference site.</p>
-    <img class="accent" src="./assets/lines-left.svg" alt="" />
-  </footer>
-
 </main>
+
+<!-- 11 · FOOTER — black panel -->
+<footer id="footer" class="panel dark">
+  <div class="rule light"></div>
+  <h3 class="foot-title">Hulas Motors Pvt Ltd — Golcha Group tribute, Biratnagar</h3>
+  <div class="foot-grid">
+    <div><strong>Chief Engineer: Prafulla Das</strong><span>Mustang V2 / Max / Bravo concept</span></div>
+    <div><a href="#introduction">Home</a><a href="#stats">Models</a><a href="#story">About</a><a href="https://english.onlinekhabar.com/mustang-max-how-the-government-killed-an-ambitious-industrialists-dream-project.html" target="_blank" rel="noopener">Source</a></div>
+    <div><span>Instagram</span><span>Facebook</span><span>X</span></div>
+  </div>
+  <p class="disclaimer">Fan-made study tribute. Not affiliated with Hulas Motors, BMW or PeachWorlds. Layout re-built with original code. 3D stand-in: Kenney Car Kit, CC0, bundled locally (vendor/ = three.js). No third-party logos, fonts (Futura→Anton) or models from any reference site.</p>
+  <img class="accent" src="./assets/lines-left.svg" alt="" loading="lazy" decoding="async" />
+</footer>
 
 <script src="./script.js"></script>
 <script type="module" src="./scene.js"></script>

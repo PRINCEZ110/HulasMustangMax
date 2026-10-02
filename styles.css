@@ -4,18 +4,39 @@
    tri-colour ground stripe lives inside the 3D scene. */
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:70px; /* keeps focus targets clear of the fixed topbar */
+  scrollbar-width:thin;
+  scrollbar-color:#8a847e transparent;
+}
 body{
   margin:0;
   background:#d6d1cc;
   color:#000;
   font-family:Inter,system-ui,Arial,sans-serif;
   overflow-x:hidden;
+  overflow-wrap:break-word; /* long tokens/URLs reflow instead of clipping */
 }
-*{scrollbar-width:none}::-webkit-scrollbar{display:none}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#8a847e;border-radius:8px}
+::-webkit-scrollbar-track{background:transparent}
 a{color:inherit}
 img{max-width:100%}
 p{margin:0 0 18px}
+::selection{background:#000;color:#fff}
+:focus-visible{outline:2px solid #000;outline-offset:3px}
+.panel.dark :focus-visible,#loader :focus-visible{outline-color:#fff}
+section[id]{scroll-margin-top:70px}
+
+/* keyboard skip link — first tab stop */
+.skip-link{
+  position:fixed;top:8px;left:8px;z-index:200;
+  background:#000;color:#fff;padding:12px 18px;
+  font-weight:700;text-decoration:none;
+  transform:translateY(-250%);transition:transform .2s ease;
+}
+.skip-link:focus{transform:none}
 
 /* ---------- persistent 3D canvas ---------- */
 #scene{
@@ -28,6 +49,9 @@ p{margin:0 0 18px}
   pointer-events:none;
 }
 #content{position:relative;z-index:1}
+/* no WebGL: drop the canvas, give stage sections a static painted backdrop */
+html.no-webgl #scene{display:none}
+html.no-webgl .stage{background:linear-gradient(180deg,#ded9d3 0%,#d6d1cc 55%,#cbc5be 100%)}
 
 /* ---------- loader ---------- */
 #loader{
@@ -35,6 +59,7 @@ p{margin:0 0 18px}
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
   transition:opacity .6s,visibility .6s;
 }
+html.no-js #loader{display:none} /* no JS = nothing ever hides it — never trap the page */
 #loader.done{opacity:0;visibility:hidden}
 .loader-title{
   text-align:center;font-family:Anton,Inter,sans-serif;font-weight:400;
@@ -51,14 +76,25 @@ p{margin:0 0 18px}
 .topbar{position:fixed;top:14px;right:12px;z-index:50;display:flex;gap:6px}
 .icon-btn{
   width:44px;height:44px;background:#000;color:#fff;border:0;font-size:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s ease,transform .15s ease;
 }
+.icon-btn:hover{background:#222}
+.icon-btn:active{transform:scale(.94)}
+.icon-btn svg{display:block}
+.icon-btn .ico-waves{opacity:.28;transition:opacity .2s ease}
+.icon-btn[aria-pressed="true"] .ico-waves{opacity:1}
 .brand-chip{background:#000;padding:7px 12px;display:flex;align-items:center}
 .brand-chip img{height:30px}
-.pw-badge{position:fixed;right:8px;bottom:8px;z-index:50}
+.pw-badge{position:fixed;right:8px;bottom:8px;z-index:50;pointer-events:none}
 .pw-badge img{height:34px}
 
 /* ---------- stage sections (transparent → 3D shows) ---------- */
 .stage{position:relative;background:transparent}
+/* soft greige halo keeps stage text readable when the dark car passes behind it */
+.hero-title,.eternal,.stat strong,.stat span,.power-note p,.stage-foot p{
+  text-shadow:0 1px 14px rgba(214,209,204,.95),0 0 4px rgba(214,209,204,.85);
+}
 .stage-hero{min-height:100dvh}
 .hero-title{
   position:absolute;top:16dvh;left:5vw;margin:0;
@@ -106,14 +142,19 @@ p{margin:0 0 18px}
 .pill{
   display:inline-flex;align-items:center;gap:16px;
   background:#000;color:#fff;border-radius:100px;
-  padding:9px 9px 9px 22px;text-decoration:none;
+  padding:9px 9px 9px 22px;text-decoration:none;cursor:pointer;
   font-size:17px;font-weight:500;line-height:1;
+  transition:transform .2s ease,box-shadow .2s ease;
 }
+.pill:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.pill:active{transform:translateY(0) scale(.98);box-shadow:none}
 .pill.light{background:#fff;color:#000}
 .pill-arrow{
   background:#fff;border-radius:50%;width:38px;height:38px;
   display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease;
 }
+.pill:hover .pill-arrow{transform:translateX(3px)}
 .pill-arrow img{width:18px;height:18px}
 .pill-arrow.dark{background:#000}
 
@@ -129,6 +170,7 @@ p{margin:0 0 18px}
   font-size:clamp(26px,3.35vw,50px);
   font-weight:800;line-height:1.18;letter-spacing:-.8px;
   max-width:70%;
+  text-wrap:balance;
 }
 .big.light{color:#fff}
 .panel .pill{margin-top:44px}
@@ -145,17 +187,17 @@ p{margin:0 0 18px}
 .split{display:flex;gap:40px;margin-top:56px}
 .side-label{
   width:24%;flex-shrink:0;margin:0;
-  color:#a6a6a6;font-size:clamp(17px,1.7vw,26px);font-weight:800;line-height:1.25;
+  color:#6f6f6f;font-size:clamp(17px,1.7vw,26px);font-weight:800;line-height:1.25;
 }
 .split > div{flex:1;min-width:0}
 .mid{
   margin:0;font-size:clamp(22px,2.6vw,38px);font-weight:800;
-  line-height:1.22;letter-spacing:-.5px;
+  line-height:1.22;letter-spacing:-.5px;text-wrap:balance;
 }
 .divider{height:1px;background:#dcdcdc;margin:36px 0}
 .years{display:flex;gap:clamp(24px,4vw,72px);flex-wrap:wrap}
 .years strong{display:block;font-size:clamp(26px,2.4vw,34px);font-weight:800}
-.years span{display:block;margin-top:6px;color:#adadad;font-size:15px;font-weight:500;line-height:1.4}
+.years span{display:block;margin-top:6px;color:#6f6f6f;font-size:15px;font-weight:500;line-height:1.4}
 
 /* video slot inside black panel */
 .video-slot{margin:70px auto 0;width:min(920px,92%);text-align:center}
@@ -167,25 +209,25 @@ p{margin:0 0 18px}
 .quote-mark{width:96px;opacity:.9;display:block;margin-bottom:-6px}
 .quote-lead{
   font-size:clamp(24px,2.9vw,44px);font-weight:800;line-height:1.22;
-  letter-spacing:-.8px;margin:0 0 22px;
+  letter-spacing:-.8px;margin:0 0 22px;text-wrap:balance;
 }
-.attrib{color:#a6a6a6;font-size:clamp(17px,1.5vw,24px);font-weight:700;margin-bottom:26px}
+.attrib{color:#6f6f6f;font-size:clamp(17px,1.5vw,24px);font-weight:700;margin-bottom:26px}
 .body-p{font-size:16.5px;line-height:1.65;color:#333;max-width:62ch}
 .stars-row{display:flex;align-items:center;gap:16px;margin:30px 0 8px}
 .stars-row img{width:110px}
 .stars-row span{color:#666;font-size:14px}
-.muted{color:#777;font-size:14px}
+.muted{color:#6b6b6b;font-size:14px}
 .muted a{text-decoration:underline}
 
 /* resources */
 .res-list{display:flex;flex-direction:column}
 .res-list a{
   display:block;text-decoration:none;border-top:1px solid #e2e2e2;padding:15px 0;
-  transition:background .2s;
+  transition:background .2s;cursor:pointer;
 }
 .res-list a:hover{background:#fafafa}
 .res-list strong{display:block;font-size:clamp(17px,1.5vw,21px);font-weight:800}
-.res-list span{display:block;margin-top:4px;color:#777;font-size:14.5px;line-height:1.5}
+.res-list span{display:block;margin-top:4px;color:#6b6b6b;font-size:14.5px;line-height:1.5}
 
 /* canvas gaps between opaque panels */
 .gap{height:64px;background:transparent;pointer-events:none}
@@ -194,18 +236,20 @@ p{margin:0 0 18px}
 .foot-title{
   margin:clamp(48px,8vh,90px) 0 0;
   font-size:clamp(28px,3.4vw,52px);font-weight:800;letter-spacing:-1px;max-width:800px;
+  text-wrap:balance;
 }
 .foot-grid{display:flex;gap:40px;margin:46px 0 0}
 .foot-grid > div{flex:1;display:flex;flex-direction:column;gap:9px}
-.foot-grid a{text-decoration:none;font-size:clamp(18px,1.6vw,24px);font-weight:700}
+.foot-grid a{text-decoration:none;font-size:clamp(18px,1.6vw,24px);font-weight:700;cursor:pointer;transition:opacity .2s ease}
+.foot-grid a:hover{text-decoration:underline}
 .foot-grid span{font-size:clamp(18px,1.6vw,24px);font-weight:700}
 .foot-grid div > strong{font-size:clamp(18px,1.6vw,24px)}
 .foot-grid div > span{color:#cfcfcf;font-weight:500}
-.disclaimer{color:#ffffff4d;font-size:12px;max-width:960px;margin-top:70px;line-height:1.6}
+.disclaimer{color:#a3a3a3;font-size:12px;max-width:960px;margin-top:70px;line-height:1.6}
 
-/* reveal-on-scroll */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
+/* reveal-on-scroll — only hidden when JS is present to reveal it again */
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+html.js .reveal.in{opacity:1;transform:none}
 
 /* ---------- responsive ---------- */
 @media(max-width:992px){
@@ -226,9 +270,23 @@ p{margin:0 0 18px}
   .gap{height:40px}
   .hero-title{font-size:13.5vw;letter-spacing:0}
   .big{font-size:23px}
-  .stat strong{font-size:30px}
+  .hud{gap:10px;padding-left:4vw;padding-right:4vw}
+  .stat{padding-left:10px;min-width:0}
+  .stat strong{font-size:clamp(20px,6vw,30px)}
   .stat span{font-size:12px}
   .eternal{font-size:clamp(48px,15vw,80px)}
   .img-grid img{height:210px}
   .quote-lead{font-size:22px}
+}
+
+/* ---------- reduced motion: final readable state, no scroll-scrub easing ---------- */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  html.js .reveal{opacity:1;transform:none;transition:none}
+  .loader-ring span{animation-duration:6s}
+  .pill,.pill-arrow,.icon-btn,.res-list a,.foot-grid a,.skip-link{transition:none}
+  .pill:hover{transform:none}
+  .pill:active{transform:none}
+  .icon-btn:active{transform:none}
+  .pill:hover .pill-arrow{transform:none}
 }
